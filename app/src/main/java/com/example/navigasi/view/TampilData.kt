@@ -1,10 +1,8 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-package com.example.navigasi.view
+package com.example.navigasi
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,73 +24,43 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-// Import R yang benar dari proyek Anda
-import com.example.navigasi.R
 
-// Definisi TampilData menerima data yang sebenarnya
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TampilData(
-    data: List<Pair<String, String>>, // Menerima data yang akan ditampilkan
-    onBackBtnClick: () -> Unit
-) {
-    // Data yang diterima dipetakan ke items
-    val items = data.map { (labelId, value) ->
-        Pair(stringResource(id = labelId.toIntOrNull() ?: 0), value)
-    }
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(), // Mengisi seluruh layar
-        topBar = {
+    onBackBtnClick:()->Unit
+){
+    val items = listOf(
+        Pair(stringResource(id = R.string.nama_lengkap), "Contoh Nama"),
+        Pair(stringResource(id = R.string.jenis_kelamin), "Lainnya"),
+        Pair(stringResource(id = R.string.alamat), "Yogyakarta"),
+    )
+    Scaffold (modifier = Modifier,
+        {
             TopAppBar(
-                title = {
-                    // Pastikan R.string.tampil ada di resources Anda
-                    Text(
-                        text = stringResource(id = R.string.tampil),
-                        color = Color.White
-                    )
-                },
-                colors = TopAppBarDefaults.mediumTopAppBarColors(
-                    // Pastikan R.color.teal_700 ada di resources Anda
-                    containerColor = colorResource(id = R.color.teal_700)
-                )
+                title = { Text(text = stringResource(id = R.string.tampil), color = Color.White) },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(colorResource(id = R.color.teal_700))
             )
-        }) { isiRuang ->
-        Column(
-            modifier = Modifier.padding(paddingValues = isiRuang).fillMaxWidth(),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(all = dimensionResource(id = R.dimen.padding_medium)) // Pastikan R.dimen.padding_medium ada
-                    .weight(1f), // Agar kolom ini mengambil sisa ruang
-                verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.padding_small)) // Pastikan R.dimen.padding_small ada
-            ) {
+        }) { isiRuang->
+        Column(modifier = Modifier.padding(isiRuang),
+            verticalArrangement = Arrangement.SpaceBetween) {
+            Column(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))) {
                 items.forEach { item ->
                     Column {
-                        Text(
-                            text = item.first.uppercase(),
-                            fontSize = 16.sp
-                        )
-                        Text(
-                            text = item.second,
+                        Text(text = item.first.uppercase(),
+                            fontSize = 16.sp)
+                        Text(text = item.second,
                             fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.Cursive,
-                            fontSize = 22.sp
-                        )
+                            fontFamily = FontFamily.Cursive, fontSize = 22.sp)
                     }
                     HorizontalDivider(thickness = 1.dp, color = Color.Cyan)
                 }
-            }
-
-            // Tombol "Back" ditempatkan di bagian bawah
-            Column(modifier = Modifier.padding(16.dp)) {
                 Spacer(modifier = Modifier.height(height = 10.dp))
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = onBackBtnClick
-                ) {
-                    // Mengganti string "Back" hardcoded menjadi string resource
-                    Text(text = stringResource(id = R.string.kembali)) // Asumsi R.string.kembali ada atau Anda bisa menggunakan "Back"
+                    onClick = onBackBtnClick) {
+                    Text(text = stringResource(id=R.string.back))
                 }
             }
         }

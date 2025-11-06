@@ -20,8 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NavigasiTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    DataApp(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -38,10 +37,4 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NavigasiTheme {
-        Greeting("Android")
-    }
-}
+
