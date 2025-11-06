@@ -21,7 +21,14 @@ fun DataApp(
         NavHost(
             navController = navController,
             startDestination = Navigasi.Formulir.name,
-        )
+
+            modifier= Modifier.padding(paddingValues= isiRuang)){
+            FormIsian(
+                OnSubmiitBtnClick = {
+                    navController.navigate(route = Navigasi.Detail.name)
+                }
+            )
+        }
 
     }
 }
